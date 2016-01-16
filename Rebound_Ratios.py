@@ -219,6 +219,17 @@ both_ORPG['Ratio'] = (both_ORPG['ORPG_x'] + both_ORPG['ORPG_y'])/both_ORPG['OFF_
 both_DRPG['Ratio'] = (both_DRPG['DRPG_x'] + both_DRPG['DRPG_y'])/both_DRPG['DEF_OWN']
 both_TRPG['Ratio'] = (both_TRPG['RPG_x'] + both_TRPG['RPG_y'])/both_TRPG['TOT_OWN']
 
+best_ORPG = best_ORPG.sort(['Year', 'TEAM1'])
+best_DRPG = best_DRPG.sort(['Year', 'TEAM1'])
+best_TRPG = best_TRPG.sort(['Year', 'TEAM1'])
+
+sec_ORPG = sec_ORPG.sort(['Year', 'TEAM1'])
+sec_DRPG = sec_DRPG.sort(['Year', 'TEAM1'])
+sec_TRPG = sec_TRPG.sort(['Year', 'TEAM1'])
+
+both_ORPG = both_ORPG.sort(['Year', 'TEAM1'])
+both_DRPG = both_DRPG.sort(['Year', 'TEAM1'])
+both_TRPG = both_TRPG.sort(['Year', 'TEAM1'])
 
 #STEP 5: MAKE NEW DATAFRAMES WITH CALCULATIONS
 #league_ratios will hold the league average ratios from 2005-2015
@@ -253,6 +264,8 @@ for a in range (2005, 2016):
     BothDRPG.append(both_DRPG.loc[both_DRPG['Year'] == a]['Ratio'].mean())
     BothTRPG.append(both_TRPG.loc[both_TRPG['Year'] == a]['Ratio'].mean())
 
+
+
 league_ratios['BestORPG'] = BestORPG
 league_ratios['BestDRPG'] = BestDRPG
 league_ratios['BestTRPG'] = BestTRPG
@@ -268,15 +281,6 @@ league_ratios['BothTRPG'] = BothTRPG
 teams=[]
 for value in team_dict.values():
     teams.append(value)
-
-
-
-    
-    
-    
-    
-    
-
 
 
 #STEP 6: MAKE GRAPHS 
@@ -302,3 +306,41 @@ plt.plot(Year, BothTRPG, label = 'TRPG')
 plt.title('Top 2 Best Players Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
 plt.show()
+
+best_ORPG = best_ORPG.sort(['Year', 'TEAM1'])
+best_DRPG = best_DRPG.sort(['Year', 'TEAM1'])
+best_TRPG = best_TRPG.sort(['Year', 'TEAM1'])
+
+sec_ORPG = sec_ORPG.sort(['Year', 'TEAM1'])
+sec_DRPG = sec_DRPG.sort(['Year', 'TEAM1'])
+sec_TRPG = sec_TRPG.sort(['Year', 'TEAM1'])
+
+both_ORPG = both_ORPG.sort(['Year', 'TEAM1'])
+both_DRPG = both_DRPG.sort(['Year', 'TEAM1'])
+both_TRPG = both_TRPG.sort(['Year', 'TEAM1'])
+
+#graphs by team
+for team in teams:
+    plt.plot(Year, best_ORPG[best_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
+    plt.plot(Year, best_DRPG[best_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
+    plt.plot(Year, best_TRPG[best_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    plt.title(team + ' Best Player Rebounds / Team Rebounds')
+    plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.show()
+
+for team in teams:
+    plt.plot(Year, sec_ORPG[sec_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
+    plt.plot(Year, sec_DRPG[sec_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
+    plt.plot(Year, sec_TRPG[sec_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    plt.title(team + ' 2nd Best Player Rebounds / Team Rebounds')
+    plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.show()
+
+for team in teams:
+    plt.plot(Year, both_ORPG[both_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
+    plt.plot(Year, both_DRPG[both_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
+    plt.plot(Year, both_TRPG[both_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    plt.title(team + ' Top 2 Best Players Rebounds / Team Rebounds')
+    plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.show()
+    
