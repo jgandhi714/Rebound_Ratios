@@ -271,7 +271,6 @@ for value in team_dict.values():
 
 
 
-
     
     
     
@@ -281,3 +280,25 @@ for value in team_dict.values():
 
 
 #STEP 6: MAKE GRAPHS 
+#graphs of league-wide averages
+import matplotlib.pyplot as plt
+plt.plot(Year, BestORPG, label = 'ORPG')
+plt.plot(Year, BestDRPG, label = 'DRPG')
+plt.plot(Year, BestTRPG, label = 'TRPG')
+plt.title('Best Player Rebounds / Team Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.show()
+
+plt.plot(Year, SecORPG, label = 'ORPG')
+plt.plot(Year, SecDRPG, label = 'DRPG')
+plt.plot(Year, SecTRPG, label = 'TRPG')
+plt.title('2nd Best Player Rebounds / Team Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.show()
+
+plt.plot(Year, BothORPG, label = 'ORPG')
+plt.plot(Year, BothDRPG, label = 'DRPG')
+plt.plot(Year, BothTRPG, label = 'TRPG')
+plt.title('Top 2 Best Players Rebounds / Team Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.show()
