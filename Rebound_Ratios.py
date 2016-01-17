@@ -282,29 +282,43 @@ teams=[]
 for value in team_dict.values():
     teams.append(value)
 
+teams = sorted(teams)
 
-#STEP 6: MAKE GRAPHS 
+
+#STEP 6: MAKE AND SAVE GRAPHS 
 #graphs of league-wide averages
+from matplotlib.backends.backend_pdf import PdfPages
+pp = PdfPages('NBA_Rebound_Ratios_FINAL_5.pdf')
+
 import matplotlib.pyplot as plt
 plt.plot(Year, BestORPG, label = 'ORPG')
 plt.plot(Year, BestDRPG, label = 'DRPG')
 plt.plot(Year, BestTRPG, label = 'TRPG')
 plt.title('Best Player Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
+fig = plt.figure
+plt.savefig(pp, format = 'pdf')
 plt.show()
+
 
 plt.plot(Year, SecORPG, label = 'ORPG')
 plt.plot(Year, SecDRPG, label = 'DRPG')
 plt.plot(Year, SecTRPG, label = 'TRPG')
 plt.title('2nd Best Player Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
+fig2 = plt.figure
+plt.savefig(pp, format='pdf')
 plt.show()
+
+
 
 plt.plot(Year, BothORPG, label = 'ORPG')
 plt.plot(Year, BothDRPG, label = 'DRPG')
 plt.plot(Year, BothTRPG, label = 'TRPG')
 plt.title('Top 2 Best Players Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
+fig3 = plt.figure
+plt.savefig(pp, format='pdf')
 plt.show()
 
 best_ORPG = best_ORPG.sort(['Year', 'TEAM1'])
@@ -326,7 +340,13 @@ for team in teams:
     plt.plot(Year, best_TRPG[best_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
     plt.title(team + ' Best Player Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.figure
+    plt.savefig(pp, format='pdf')
     plt.show()
+
+    
+
+
 
 for team in teams:
     plt.plot(Year, sec_ORPG[sec_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
@@ -334,7 +354,11 @@ for team in teams:
     plt.plot(Year, sec_TRPG[sec_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
     plt.title(team + ' 2nd Best Player Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.figure
+    plt.savefig(pp, format='pdf')
     plt.show()
+
+
 
 for team in teams:
     plt.plot(Year, both_ORPG[both_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
@@ -342,5 +366,11 @@ for team in teams:
     plt.plot(Year, both_TRPG[both_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
     plt.title(team + ' Top 2 Best Players Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.figure    
+    plt.savefig(pp, format='pdf')
     plt.show()
+
+
+    
+pp.close()
     
