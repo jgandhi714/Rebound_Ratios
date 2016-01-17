@@ -9,7 +9,6 @@ Created on Mon Jan 11 17:56:31 2016
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
-import numpy as np
 
 
 url_template = "http://espn.go.com/nba/statistics/team/_/stat/rebounds-per-game/sort/avgOffensiveRebounds/year/{yearno}"
@@ -43,6 +42,7 @@ for yearno in range (2005, 2016):
 df2 = df2[df2.TEAM != "REBOUND PCT"]
 df2 = df2[df2.TEAM != "TEAM"]
 team_reb_df = team_reb_df.append(df2, ignore_index = True)
+team_reb_df = team_reb_df.convert_objects(convert_numeric=True)
     
     
 #STEP 2: GET PLAYER REBOUND DATA SINCE THE 2004-2005 SEASON
@@ -239,6 +239,10 @@ for a in range (2006, 2016):
     Year.append(a)
 league_ratios['Year'] = Year
 
+TeamORPG = []
+TeamDRPG = []
+TeamTRPG = []
+
 BestORPG = []
 BestDRPG = []
 BestTRPG = []
@@ -252,6 +256,10 @@ BothDRPG = []
 BothTRPG = []
 
 for a in range (2005, 2016):
+    TeamORPG.append(team_reb_df.loc[team_reb_df['Year'] == a]['OFF_OWN'].mean())
+    TeamDRPG.append(team_reb_df.loc[team_reb_df['Year'] == a]['DEF_OWN'].mean())
+    TeamTRPG.append(team_reb_df.loc[team_reb_df['Year'] == a]['TOT_OWN'].mean())
+    
     BestORPG.append(best_ORPG.loc[best_ORPG['Year'] == a]['Ratio'].mean())
     BestDRPG.append(best_DRPG.loc[best_DRPG['Year'] == a]['Ratio'].mean())
     BestTRPG.append(best_TRPG.loc[best_TRPG['Year'] == a]['Ratio'].mean())
@@ -263,8 +271,6 @@ for a in range (2005, 2016):
     BothORPG.append(both_ORPG.loc[both_ORPG['Year'] == a]['Ratio'].mean())
     BothDRPG.append(both_DRPG.loc[both_DRPG['Year'] == a]['Ratio'].mean())
     BothTRPG.append(both_TRPG.loc[both_TRPG['Year'] == a]['Ratio'].mean())
-
-
 
 league_ratios['BestORPG'] = BestORPG
 league_ratios['BestDRPG'] = BestDRPG
@@ -284,13 +290,24 @@ for value in team_dict.values():
 
 teams = sorted(teams)
 
+from matplotlib.backends.backend_pdf import PdfPages
+pp = PdfPages('NBA_Rebound_Ratios_Charts.pdf')
+import matplotlib.pyplot as plt
 
 #STEP 6: MAKE AND SAVE GRAPHS 
-#graphs of league-wide averages
+#graphs of ORPG, DRPG, and TRPG, league-wide averages
+plt.plot(Year, TeamORPG, label = 'ORPG')
+plt.plot(Year, TeamDRPG, label = 'DRPG')
+plt.plot(Year, TeamTRPG, label = 'TRPG')
+plt.title('League-Wide Average Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.figure
+plt.savefig(pp, format = 'pdf')
+plt.show()
+#graphs of ORPG, DRPG, and TRPG ratios, league-wide averages
 from matplotlib.backends.backend_pdf import PdfPages
 pp = PdfPages('NBA_Rebound_Ratios_Charts.pdf')
 
-import matplotlib.pyplot as plt
 plt.plot(Year, BestORPG, label = 'ORPG')
 plt.plot(Year, BestDRPG, label = 'DRPG')
 plt.plot(Year, BestTRPG, label = 'TRPG')
