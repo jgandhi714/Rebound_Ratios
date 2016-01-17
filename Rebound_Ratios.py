@@ -288,7 +288,7 @@ teams = sorted(teams)
 #STEP 6: MAKE AND SAVE GRAPHS 
 #graphs of league-wide averages
 from matplotlib.backends.backend_pdf import PdfPages
-pp = PdfPages('NBA_Rebound_Ratios_FINAL_5.pdf')
+pp = PdfPages('NBA_Rebound_Ratios_Charts.pdf')
 
 import matplotlib.pyplot as plt
 plt.plot(Year, BestORPG, label = 'ORPG')
@@ -344,9 +344,6 @@ for team in teams:
     plt.savefig(pp, format='pdf')
     plt.show()
 
-    
-
-
 
 for team in teams:
     plt.plot(Year, sec_ORPG[sec_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
@@ -357,8 +354,6 @@ for team in teams:
     plt.figure
     plt.savefig(pp, format='pdf')
     plt.show()
-
-
 
 for team in teams:
     plt.plot(Year, both_ORPG[both_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
