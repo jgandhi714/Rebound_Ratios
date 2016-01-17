@@ -305,8 +305,6 @@ plt.figure
 plt.savefig(pp, format = 'pdf')
 plt.show()
 #graphs of ORPG, DRPG, and TRPG ratios, league-wide averages
-from matplotlib.backends.backend_pdf import PdfPages
-pp = PdfPages('NBA_Rebound_Ratios_Charts.pdf')
 
 plt.plot(Year, BestORPG, label = 'ORPG')
 plt.plot(Year, BestDRPG, label = 'DRPG')
