@@ -300,7 +300,7 @@ plt.plot(Year, TeamORPG, label = 'ORPG')
 plt.plot(Year, TeamDRPG, label = 'DRPG')
 plt.plot(Year, TeamTRPG, label = 'TRPG')
 plt.title('League-Wide Average Rebounds')
-plt.legend(bbox_to_anchor=(1,0.80))
+plt.legend(bbox_to_anchor=(1,0.50))
 plt.figure
 plt.savefig(pp, format = 'pdf')
 plt.show()
