@@ -302,6 +302,7 @@ plt.plot(Year, TeamTRPG, label = 'TRPG')
 plt.title('League-Wide Average Rebounds')
 plt.legend(bbox_to_anchor=(1,0.50))
 plt.figure
+plt.savefig('League-Wide Average Rebounds.png')
 plt.savefig(pp, format = 'pdf')
 plt.show()
 #graphs of ORPG, DRPG, and TRPG ratios, league-wide averages
@@ -311,7 +312,8 @@ plt.plot(Year, BestDRPG, label = 'DRPG')
 plt.plot(Year, BestTRPG, label = 'TRPG')
 plt.title('Best Player Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
-fig = plt.figure
+plt.figure
+plt.savefig('Best Player Rebounds_Team Rebounds')
 plt.savefig(pp, format = 'pdf')
 plt.show()
 
@@ -321,7 +323,8 @@ plt.plot(Year, SecDRPG, label = 'DRPG')
 plt.plot(Year, SecTRPG, label = 'TRPG')
 plt.title('2nd Best Player Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
-fig2 = plt.figure
+plt.figure
+plt.savefig('2nd Best Player Rebounds_Team Rebounds')
 plt.savefig(pp, format='pdf')
 plt.show()
 
@@ -332,7 +335,8 @@ plt.plot(Year, BothDRPG, label = 'DRPG')
 plt.plot(Year, BothTRPG, label = 'TRPG')
 plt.title('Top 2 Best Players Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
-fig3 = plt.figure
+plt.figure
+plt.savefig('Top 2 Best Players Rebounds_Team Rebounds')
 plt.savefig(pp, format='pdf')
 plt.show()
 
@@ -353,10 +357,12 @@ for team in teams:
     plt.plot(Year, best_ORPG[best_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
     plt.plot(Year, best_DRPG[best_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
     plt.plot(Year, best_TRPG[best_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    name = str(team + ' Best Player Rebounds_Team Rebounds')
     plt.title(team + ' Best Player Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
     plt.figure
     plt.savefig(pp, format='pdf')
+    plt.savefig(name)
     plt.show()
 
 
@@ -364,23 +370,35 @@ for team in teams:
     plt.plot(Year, sec_ORPG[sec_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
     plt.plot(Year, sec_DRPG[sec_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
     plt.plot(Year, sec_TRPG[sec_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    name = str(team + ' 2nd Best Player Rebounds_Team Rebounds')
     plt.title(team + ' 2nd Best Player Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
     plt.figure
     plt.savefig(pp, format='pdf')
+    plt.savefig(name)
     plt.show()
 
 for team in teams:
     plt.plot(Year, both_ORPG[both_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
     plt.plot(Year, both_DRPG[both_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
     plt.plot(Year, both_TRPG[both_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    name = str(team + ' Top 2 Best Players Rebounds_Team Rebounds')
     plt.title(team + ' Top 2 Best Players Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
     plt.figure    
     plt.savefig(pp, format='pdf')
+    plt.savefig(name)
     plt.show()
-
 
     
 pp.close()
-    
+
+#move pngs into separate folder
+import os
+import shutil
+sourcepath='C:/Users/Javesh/.spyder2-py3/NBA/Git Rebounds Analytics/'
+source = os.listdir(sourcepath)
+destinationpath = 'C:/Users/Javesh/.spyder2-py3/NBA/Git Rebounds Analytics/Individal_PNGs/'
+for files in source:
+    if files.endswith('.png'):
+        shutil.move(os.path.join(sourcepath,files), os.path.join(destinationpath,files))
