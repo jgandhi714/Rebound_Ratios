@@ -398,7 +398,7 @@ import os
 import shutil
 sourcepath='C:/Users/Javesh/.spyder2-py3/NBA/Git Rebounds Analytics/'
 source = os.listdir(sourcepath)
-destinationpath = 'C:/Users/Javesh/.spyder2-py3/NBA/Git Rebounds Analytics/Individal_PNGs/'
+destinationpath = 'C:/Users/Javesh/.spyder2-py3/NBA/Git Rebounds Analytics/Individual_PNGs/'
 for files in source:
     if files.endswith('.png'):
         shutil.move(os.path.join(sourcepath,files), os.path.join(destinationpath,files))
