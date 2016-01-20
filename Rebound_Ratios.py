@@ -146,15 +146,7 @@ del sec_player_DRPG['level_0']
 del sec_player_TRPG['index']
 del sec_player_TRPG['level_0']
 
-#sec_player_ORPG = sec_player_ORPG.reset_index()
-#sec_player_DRPG = sec_player_DRPG.reset_index()
-#sec_player_TRPG = sec_player_TRPG.reset_index()
-
 #combine dataframes to have first and second best rebounders in each
-
-frames_ORPG = [best_player_ORPG, sec_player_ORPG]
-frames_DRPG = [best_player_DRPG, sec_player_DRPG]
-frames_TRPG = [best_player_TRPG, sec_player_TRPG]
 
 top_two_ORPG = best_player_ORPG.merge(sec_player_ORPG, on = ['Year', 'TEAM1'], how = 'outer')
 top_two_DRPG = best_player_DRPG.merge(sec_player_DRPG, on = ['Year', 'TEAM1'], how = 'outer')
@@ -168,11 +160,8 @@ del top_two_ORPG['level_0']
 del top_two_DRPG['level_0']
 del top_two_TRPG['level_0']
 
-top_two_ORPG = top_two_ORPG.reset_index()
-top_two_DRPG = top_two_DRPG.reset_index()
-top_two_TRPG = top_two_TRPG.reset_index()
 
-#repeat the above setps to create dataframes and lists that contain the third, fourth, fifth best rebounders and dfs for cumulative totals
+#repeat the above steps to create dataframes and lists that contain the third, fourth, fifth best rebounders and dfs for cumulative totals
 
 #3rd best rebounder
 #The dataframes below will disclude the best and 2nd best rebounders from each team
@@ -204,15 +193,9 @@ del third_player_DRPG['level_0']
 del third_player_TRPG['index']
 del third_player_TRPG['level_0']
 
-third_player_ORPG = third_player_ORPG.reset_index()
-third_player_DRPG = third_player_DRPG.reset_index()
-third_player_TRPG = third_player_TRPG.reset_index()
+
 
 #combine dataframes to have first, second, and third best rebounders in each
-
-frames_ORPG = [best_player_ORPG, sec_player_ORPG, third_player_ORPG]
-frames_DRPG = [best_player_DRPG, sec_player_DRPG, third_player_DRPG]
-frames_TRPG = [best_player_TRPG, sec_player_TRPG, third_player_TRPG]
 
 top_three_ORPG = top_two_ORPG.merge(third_player_ORPG, on = ['Year', 'TEAM1'], how = 'outer')
 top_three_DRPG = top_two_DRPG.merge(third_player_DRPG, on = ['Year', 'TEAM1'], how = 'outer')
@@ -222,9 +205,57 @@ top_three_ORPG = top_three_ORPG.sort('ORPG_x', ascending = False)
 top_three_DRPG = top_three_DRPG.sort('DRPG_x', ascending = False)
 top_three_TRPG = top_three_TRPG.sort('RPG_x', ascending = False)
 
-top_three_ORPG = top_three_ORPG.reset_index()
-top_three_DRPG = top_three_DRPG.reset_index()
-top_three_TRPG = top_three_TRPG.reset_index()
+#4th best rebounder
+#The dataframes below will disclude the best, 2nd best, and 3rd best rebounders from each team
+ORPG_remove_3 = pd.DataFrame()
+DRPG_remove_3 = pd.DataFrame()
+TRPG_remove_3 = pd.DataFrame()
+
+ORPG_remove_3 = ORPG_remove_2[ORPG_remove_2.index.map(lambda x: x not in third_player_ORPG.index)]
+DRPG_remove_3 = DRPG_remove_2[DRPG_remove_2.index.map(lambda x: x not in third_player_DRPG.index)]
+TRPG_remove_3 = TRPG_remove_2[TRPG_remove_2.index.map(lambda x: x not in third_player_TRPG.index)]
+
+#now I can extract the fourth best rebounder from each team by repeating the above code
+fourth_player_ORPG = pd.DataFrame()
+fourth_player_DRPG = pd.DataFrame()
+fourth_player_TRPG = pd.DataFrame()
+
+for yearno2 in range (2005, 2016):
+    new_df_ORPG_4 = ORPG_remove_3[ORPG_remove_3.Year == yearno2].drop_duplicates(subset = ['TEAM1'])
+    fourth_player_ORPG = fourth_player_ORPG.append(new_df_ORPG_4)
+    new_df_DRPG_4 = DRPG_remove_3[DRPG_remove_3.Year == yearno2].drop_duplicates(subset = ['TEAM1'])
+    fourth_player_DRPG = fourth_player_DRPG.append(new_df_DRPG_4)
+    new_df_TRPG_4 = TRPG_remove_3[TRPG_remove_3.Year == yearno2].drop_duplicates(subset = ['TEAM1'])
+    fourth_player_TRPG = fourth_player_TRPG.append(new_df_TRPG_4)
+
+del fourth_player_ORPG['index']
+del fourth_player_ORPG['level_0']
+del fourth_player_DRPG['index']
+del fourth_player_DRPG['level_0']
+del fourth_player_TRPG['index']
+del fourth_player_TRPG['level_0']
+
+
+#combine dataframes to have first, second, third, and fourth best rebounders in each
+#del top_three_ORPG['index_x']
+#del top_three_DRPG['index_x']
+#del top_three_TRPG['index_x']
+del top_three_ORPG['RK']
+del top_three_DRPG['RK']
+del top_three_TRPG['RK']
+
+fourth_player_ORPG = fourth_player_ORPG.rename(columns = {'PLAYER':'PLAYER_4','TEAM':'TEAM_4', 'GP': 'GP_4', 'MPG':'MPG_4', 'OFF':'OFF_4', 'ORPG':'ORPG_4','DEF':'DEF_4', 'DRPG':'DRPG_4', 'REB':'REB_4', 'RPG':'RPG_4', 'RP48':'RP48_4', 'TEAM2':'TEAM2_4', 'TEAM3':'TEAM3_4'})
+fourth_player_DRPG = fourth_player_DRPG.rename(columns = {'PLAYER':'PLAYER_4','TEAM':'TEAM_4', 'GP': 'GP_4', 'MPG':'MPG_4', 'OFF':'OFF_4', 'ORPG':'ORPG_4','DEF':'DEF_4', 'DRPG':'DRPG_4', 'REB':'REB_4', 'RPG':'RPG_4', 'RP48':'RP48_4', 'TEAM2':'TEAM2_4', 'TEAM3':'TEAM3_4'})
+fourth_player_TRPG = fourth_player_TRPG.rename(columns = {'PLAYER':'PLAYER_4','TEAM':'TEAM_4', 'GP': 'GP_4', 'MPG':'MPG_4', 'OFF':'OFF_4', 'ORPG':'ORPG_4','DEF':'DEF_4', 'DRPG':'DRPG_4', 'REB':'REB_4', 'RPG':'RPG_4', 'RP48':'RP48_4', 'TEAM2':'TEAM2_4', 'TEAM3':'TEAM3_4'})
+
+
+top_four_ORPG = top_three_ORPG.merge(fourth_player_ORPG, on = ['Year', 'TEAM1'], how = 'outer')
+top_four_DRPG = top_three_DRPG.merge(fourth_player_DRPG, on = ['Year', 'TEAM1'], how = 'outer')
+top_four_TRPG = top_three_TRPG.merge(fourth_player_TRPG, on = ['Year', 'TEAM1'], how = 'outer')
+
+top_four_ORPG = top_four_ORPG.sort('ORPG_x', ascending = False)
+top_four_DRPG = top_four_DRPG.sort('DRPG_x', ascending = False)
+top_four_TRPG = top_four_TRPG.sort('RPG_x', ascending = False)
 
 #STEP 3: MERGE THE PLAYER AND TEAM DATA
 #create dictionary to map team abbreviations in top_two dfs with team_df
