@@ -244,6 +244,7 @@ del top_three_ORPG['RK']
 del top_three_DRPG['RK']
 del top_three_TRPG['RK']
 
+
 fourth_player_ORPG = fourth_player_ORPG.rename(columns = {'PLAYER':'PLAYER_4','TEAM':'TEAM_4', 'GP': 'GP_4', 'MPG':'MPG_4', 'OFF':'OFF_4', 'ORPG':'ORPG_4','DEF':'DEF_4', 'DRPG':'DRPG_4', 'REB':'REB_4', 'RPG':'RPG_4', 'RP48':'RP48_4', 'TEAM2':'TEAM2_4', 'TEAM3':'TEAM3_4'})
 fourth_player_DRPG = fourth_player_DRPG.rename(columns = {'PLAYER':'PLAYER_4','TEAM':'TEAM_4', 'GP': 'GP_4', 'MPG':'MPG_4', 'OFF':'OFF_4', 'ORPG':'ORPG_4','DEF':'DEF_4', 'DRPG':'DRPG_4', 'REB':'REB_4', 'RPG':'RPG_4', 'RP48':'RP48_4', 'TEAM2':'TEAM2_4', 'TEAM3':'TEAM3_4'})
 fourth_player_TRPG = fourth_player_TRPG.rename(columns = {'PLAYER':'PLAYER_4','TEAM':'TEAM_4', 'GP': 'GP_4', 'MPG':'MPG_4', 'OFF':'OFF_4', 'ORPG':'ORPG_4','DEF':'DEF_4', 'DRPG':'DRPG_4', 'REB':'REB_4', 'RPG':'RPG_4', 'RP48':'RP48_4', 'TEAM2':'TEAM2_4', 'TEAM3':'TEAM3_4'})
@@ -256,6 +257,15 @@ top_four_TRPG = top_three_TRPG.merge(fourth_player_TRPG, on = ['Year', 'TEAM1'],
 top_four_ORPG = top_four_ORPG.sort('ORPG_x', ascending = False)
 top_four_DRPG = top_four_DRPG.sort('DRPG_x', ascending = False)
 top_four_TRPG = top_four_TRPG.sort('RPG_x', ascending = False)
+
+top_four_ORPG = top_four_ORPG.rename(columns = {'PLAYER':'PLAYER_3','TEAM':'TEAM_3', 'GP': 'GP_3', 'MPG':'MPG_3', 'OFF':'OFF_3', 'ORPG':'ORPG_3','DEF':'DEF_3', 'DRPG':'DRPG_3', 'REB':'REB_3', 'RPG':'RPG_3', 'RP48':'RP48_3', 'TEAM2':'TEAM2_3', 'TEAM3':'TEAM3_3'})
+top_four_DRPG = top_four_DRPG.rename(columns = {'PLAYER':'PLAYER_3','TEAM':'TEAM_3', 'GP': 'GP_3', 'MPG':'MPG_3', 'OFF':'OFF_3', 'ORPG':'ORPG_3','DEF':'DEF_3', 'DRPG':'DRPG_3', 'REB':'REB_3', 'RPG':'RPG_3', 'RP48':'RP48_3', 'TEAM2':'TEAM2_3', 'TEAM3':'TEAM3_3'})
+top_four_TRPG = top_four_TRPG.rename(columns = {'PLAYER':'PLAYER_3','TEAM':'TEAM_3', 'GP': 'GP_3', 'MPG':'MPG_3', 'OFF':'OFF_3', 'ORPG':'ORPG_3','DEF':'DEF_3', 'DRPG':'DRPG_3', 'REB':'REB_3', 'RPG':'RPG_3', 'RP48':'RP48_3', 'TEAM2':'TEAM2_3', 'TEAM3':'TEAM3_3'})
+
+del top_four_ORPG['RK']
+del top_four_DRPG['RK']
+del top_four_TRPG['RK']
+
 
 #STEP 3: MERGE THE PLAYER AND TEAM DATA
 #create dictionary to map team abbreviations in top_two dfs with team_df
@@ -277,6 +287,22 @@ both_ORPG = top_two_ORPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer
 both_DRPG = top_two_DRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
 both_TRPG = top_two_TRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
 
+third_ORPG = third_player_ORPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how='outer')
+third_DRPG = third_player_DRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how='outer')
+third_TRPG = third_player_TRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how='outer')
+
+trip_ORPG = top_three_ORPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
+trip_DRPG = top_three_DRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
+trip_TRPG = top_three_TRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
+
+fourth_ORPG = fourth_player_ORPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how='outer')
+fourth_DRPG = fourth_player_DRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how='outer')
+fourth_TRPG = fourth_player_TRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how='outer')
+
+agg_ORPG = top_four_ORPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
+agg_DRPG = top_four_DRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
+agg_TRPG = top_four_TRPG.merge(team_reb_df, on = ['Year', 'TEAM1'], how = 'outer')
+
 #STEP 4: MAKE CALCULATIONS
 #change data types to numeric so that we can make calculations
 best_ORPG = best_ORPG.convert_objects(convert_numeric = True)
@@ -291,6 +317,22 @@ both_ORPG = both_ORPG.convert_objects(convert_numeric = True)
 both_DRPG = both_DRPG.convert_objects(convert_numeric = True)
 both_TRPG = both_TRPG.convert_objects(convert_numeric = True)
 
+third_ORPG = third_ORPG.convert_objects(convert_numeric = True)
+third_DRPG = third_DRPG.convert_objects(convert_numeric = True)
+third_TRPG = third_TRPG.convert_objects(convert_numeric = True)
+
+trip_ORPG = trip_ORPG.convert_objects(convert_numeric = True)
+trip_DRPG = trip_DRPG.convert_objects(convert_numeric = True)
+trip_TRPG = trip_TRPG.convert_objects(convert_numeric = True)
+
+fourth_ORPG = fourth_ORPG.convert_objects(convert_numeric = True)
+fourth_DRPG = fourth_DRPG.convert_objects(convert_numeric = True)
+fourth_TRPG = fourth_TRPG.convert_objects(convert_numeric = True)
+
+agg_ORPG = agg_ORPG.convert_objects(convert_numeric = True)
+agg_DRPG = agg_DRPG.convert_objects(convert_numeric = True)
+agg_TRPG = agg_TRPG.convert_objects(convert_numeric = True)
+
 best_ORPG['Ratio'] = best_ORPG['ORPG']/best_ORPG['OFF_OWN']
 best_DRPG['Ratio'] = best_DRPG['DRPG']/best_DRPG['DEF_OWN']
 best_TRPG['Ratio'] = best_TRPG['RPG']/best_TRPG['TOT_OWN']
@@ -303,6 +345,22 @@ both_ORPG['Ratio'] = (both_ORPG['ORPG_x'] + both_ORPG['ORPG_y'])/both_ORPG['OFF_
 both_DRPG['Ratio'] = (both_DRPG['DRPG_x'] + both_DRPG['DRPG_y'])/both_DRPG['DEF_OWN']
 both_TRPG['Ratio'] = (both_TRPG['RPG_x'] + both_TRPG['RPG_y'])/both_TRPG['TOT_OWN']
 
+third_ORPG['Ratio'] = third_ORPG['ORPG']/third_ORPG['OFF_OWN']
+third_DRPG['Ratio'] = third_DRPG['DRPG']/third_DRPG['DEF_OWN']
+third_TRPG['Ratio'] = third_TRPG['RPG']/third_TRPG['TOT_OWN']
+
+trip_ORPG['Ratio'] = (trip_ORPG['ORPG_x'] + trip_ORPG['ORPG_y'] + trip_ORPG['ORPG'])/trip_ORPG['OFF_OWN']
+trip_DRPG['Ratio'] = (trip_DRPG['DRPG_x'] + trip_DRPG['DRPG_y'] + trip_DRPG['DRPG'])/trip_DRPG['DEF_OWN']
+trip_TRPG['Ratio'] = (trip_TRPG['RPG_x'] + trip_TRPG['RPG_y'] + trip_TRPG['RPG'])/trip_TRPG['TOT_OWN']
+
+fourth_ORPG['Ratio'] = fourth_ORPG['ORPG_4']/fourth_ORPG['OFF_OWN']
+fourth_DRPG['Ratio'] = fourth_DRPG['DRPG_4']/fourth_DRPG['DEF_OWN']
+fourth_TRPG['Ratio'] = fourth_TRPG['RPG_4']/fourth_TRPG['TOT_OWN']
+
+agg_ORPG['Ratio'] = (agg_ORPG['ORPG_x'] + agg_ORPG['ORPG_y'] + agg_ORPG['ORPG_3'] + agg_ORPG['ORPG_4'])/agg_ORPG['OFF_OWN']
+agg_DRPG['Ratio'] = (agg_DRPG['DRPG_x'] + agg_DRPG['DRPG_y'] + agg_DRPG['DRPG_3'] + agg_DRPG['DRPG_4'])/agg_DRPG['DEF_OWN']
+agg_TRPG['Ratio'] = (agg_TRPG['RPG_x'] + agg_TRPG['RPG_y'] + agg_TRPG['RPG_3'] + agg_TRPG['RPG_4'])/agg_TRPG['TOT_OWN']
+
 best_ORPG = best_ORPG.sort(['Year', 'TEAM1'])
 best_DRPG = best_DRPG.sort(['Year', 'TEAM1'])
 best_TRPG = best_TRPG.sort(['Year', 'TEAM1'])
@@ -314,6 +372,23 @@ sec_TRPG = sec_TRPG.sort(['Year', 'TEAM1'])
 both_ORPG = both_ORPG.sort(['Year', 'TEAM1'])
 both_DRPG = both_DRPG.sort(['Year', 'TEAM1'])
 both_TRPG = both_TRPG.sort(['Year', 'TEAM1'])
+
+third_ORPG = third_ORPG.sort(['Year', 'TEAM1'])
+third_DRPG = third_DRPG.sort(['Year', 'TEAM1'])
+third_TRPG = third_TRPG.sort(['Year', 'TEAM1'])
+
+trip_ORPG = trip_ORPG.sort(['Year', 'TEAM1'])
+trip_DRPG = trip_DRPG.sort(['Year', 'TEAM1'])
+trip_TRPG = trip_TRPG.sort(['Year', 'TEAM1'])
+
+fourth_ORPG = fourth_ORPG.sort(['Year', 'TEAM1'])
+fourth_DRPG = fourth_DRPG.sort(['Year', 'TEAM1'])
+fourth_TRPG = fourth_TRPG.sort(['Year', 'TEAM1'])
+
+agg_ORPG = agg_ORPG.sort(['Year', 'TEAM1'])
+agg_DRPG = agg_DRPG.sort(['Year', 'TEAM1'])
+agg_TRPG = agg_TRPG.sort(['Year', 'TEAM1'])
+
 
 #STEP 5: MAKE NEW DATAFRAMES WITH CALCULATIONS
 #league_ratios will hold the league average ratios from 2005-2015
@@ -338,6 +413,23 @@ SecTRPG = []
 BothORPG = []
 BothDRPG = []
 BothTRPG = []
+
+ThirdORPG = []
+ThirdDRPG = []
+ThirdTRPG = []
+
+TripORPG = []
+TripDRPG = []
+TripTRPG = []
+
+FourthORPG = []
+FourthDRPG = []
+FourthTRPG = []
+
+AggORPG = []
+AggDRPG = []
+AggTRPG = []
+
 
 for a in range (2005, 2016):
     TeamORPG.append(team_reb_df.loc[team_reb_df['Year'] == a]['OFF_OWN'].mean())
@@ -389,7 +481,6 @@ plt.figure
 plt.savefig('League-Wide Average Rebounds.png')
 plt.savefig(pp, format = 'pdf')
 plt.show()
-#graphs of ORPG, DRPG, and TRPG ratios, league-wide averages
 
 plt.plot(Year, BestORPG, label = 'ORPG')
 plt.plot(Year, BestDRPG, label = 'DRPG')
@@ -413,6 +504,38 @@ plt.savefig(pp, format='pdf')
 plt.show()
 
 
+plt.plot(Year, BothORPG, label = 'ORPG')
+plt.plot(Year, BothDRPG, label = 'DRPG')
+plt.plot(Year, BothTRPG, label = 'TRPG')
+plt.title('Top 2 Best Players Rebounds / Team Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.figure
+plt.savefig('Top 2 Best Players Rebounds_Team Rebounds')
+plt.savefig(pp, format='pdf')
+plt.show()
+
+
+plt.plot(Year, BestORPG, label = 'ORPG')
+plt.plot(Year, BestDRPG, label = 'DRPG')
+plt.plot(Year, BestTRPG, label = 'TRPG')
+plt.title('Best Player Rebounds / Team Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.figure
+plt.savefig('Best Player Rebounds_Team Rebounds')
+plt.savefig(pp, format = 'pdf')
+plt.show()
+
+
+plt.plot(Year, SecORPG, label = 'ORPG')
+plt.plot(Year, SecDRPG, label = 'DRPG')
+plt.plot(Year, SecTRPG, label = 'TRPG')
+plt.title('2nd Best Player Rebounds / Team Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.figure
+plt.savefig('2nd Best Player Rebounds_Team Rebounds')
+plt.savefig(pp, format='pdf')
+plt.show()
+
 
 plt.plot(Year, BothORPG, label = 'ORPG')
 plt.plot(Year, BothDRPG, label = 'DRPG')
@@ -423,6 +546,9 @@ plt.figure
 plt.savefig('Top 2 Best Players Rebounds_Team Rebounds')
 plt.savefig(pp, format='pdf')
 plt.show()
+
+
+
 
 best_ORPG = best_ORPG.sort(['Year', 'TEAM1'])
 best_DRPG = best_DRPG.sort(['Year', 'TEAM1'])
@@ -435,6 +561,8 @@ sec_TRPG = sec_TRPG.sort(['Year', 'TEAM1'])
 both_ORPG = both_ORPG.sort(['Year', 'TEAM1'])
 both_DRPG = both_DRPG.sort(['Year', 'TEAM1'])
 both_TRPG = both_TRPG.sort(['Year', 'TEAM1'])
+
+
 
 #graphs by team
 for team in teams:
