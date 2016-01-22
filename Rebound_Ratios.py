@@ -391,12 +391,11 @@ agg_TRPG = agg_TRPG.sort(['Year', 'TEAM1'])
 
 
 #STEP 5: MAKE NEW DATAFRAMES WITH CALCULATIONS
-#league_ratios will hold the league average ratios from 2005-2015
-league_ratios = pd.DataFrame()
+
 Year = [2005]
 for a in range (2006, 2016):
     Year.append(a)
-league_ratios['Year'] = Year
+
 
 TeamORPG = []
 TeamDRPG = []
@@ -447,18 +446,23 @@ for a in range (2005, 2016):
     BothORPG.append(both_ORPG.loc[both_ORPG['Year'] == a]['Ratio'].mean())
     BothDRPG.append(both_DRPG.loc[both_DRPG['Year'] == a]['Ratio'].mean())
     BothTRPG.append(both_TRPG.loc[both_TRPG['Year'] == a]['Ratio'].mean())
+    
+    ThirdORPG.append(third_ORPG.loc[third_ORPG['Year'] == a]['Ratio'].mean())
+    ThirdDRPG.append(third_DRPG.loc[third_ORPG['Year'] == a]['Ratio'].mean())
+    ThirdTRPG.append(third_TRPG.loc[third_ORPG['Year'] == a]['Ratio'].mean())
+    
+    TripORPG.append(trip_ORPG.loc[trip_ORPG['Year'] == a]['Ratio'].mean())
+    TripDRPG.append(trip_DRPG.loc[trip_DRPG['Year'] == a]['Ratio'].mean())
+    TripTRPG.append(trip_TRPG.loc[trip_TRPG['Year'] == a]['Ratio'].mean())
+    
+    FourthORPG.append(fourth_ORPG.loc[fourth_ORPG['Year'] == a]['Ratio'].mean())
+    FourthDRPG.append(fourth_DRPG.loc[fourth_DRPG['Year'] == a]['Ratio'].mean())
+    FourthTRPG.append(fourth_TRPG.loc[fourth_TRPG['Year'] == a]['Ratio'].mean())
+    
+    AggORPG.append(agg_ORPG.loc[agg_ORPG['Year'] == a]['Ratio'].mean())
+    AggDRPG.append(agg_DRPG.loc[agg_DRPG['Year'] == a]['Ratio'].mean())
+    AggTRPG.append(agg_TRPG.loc[agg_TRPG['Year'] == a]['Ratio'].mean())
 
-league_ratios['BestORPG'] = BestORPG
-league_ratios['BestDRPG'] = BestDRPG
-league_ratios['BestTRPG'] = BestTRPG
-
-league_ratios['SecORPG'] = SecORPG
-league_ratios['SecDRPG'] = SecDRPG
-league_ratios['SecTRPG'] = SecTRPG
-
-league_ratios['BothORPG'] = BothORPG
-league_ratios['BothDRPG'] = BothDRPG
-league_ratios['BothTRPG'] = BothTRPG
 
 teams=[]
 for value in team_dict.values():
@@ -485,10 +489,10 @@ plt.show()
 plt.plot(Year, BestORPG, label = 'ORPG')
 plt.plot(Year, BestDRPG, label = 'DRPG')
 plt.plot(Year, BestTRPG, label = 'TRPG')
-plt.title('Best Player Rebounds / Team Rebounds')
+plt.title('Best Rebounder Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
 plt.figure
-plt.savefig('Best Player Rebounds_Team Rebounds')
+plt.savefig('Best Rebounder Rebounds_Team Rebounds')
 plt.savefig(pp, format = 'pdf')
 plt.show()
 
@@ -496,10 +500,10 @@ plt.show()
 plt.plot(Year, SecORPG, label = 'ORPG')
 plt.plot(Year, SecDRPG, label = 'DRPG')
 plt.plot(Year, SecTRPG, label = 'TRPG')
-plt.title('2nd Best Player Rebounds / Team Rebounds')
+plt.title('2nd Best Rebounder Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
 plt.figure
-plt.savefig('2nd Best Player Rebounds_Team Rebounds')
+plt.savefig('2nd Best Rebounder Rebounds_Team Rebounds')
 plt.savefig(pp, format='pdf')
 plt.show()
 
@@ -507,47 +511,55 @@ plt.show()
 plt.plot(Year, BothORPG, label = 'ORPG')
 plt.plot(Year, BothDRPG, label = 'DRPG')
 plt.plot(Year, BothTRPG, label = 'TRPG')
-plt.title('Top 2 Best Players Rebounds / Team Rebounds')
+plt.title('Top 2 Best Rebounders Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
 plt.figure
-plt.savefig('Top 2 Best Players Rebounds_Team Rebounds')
+plt.savefig('Top 2 Best Rebounders Rebounds_Team Rebounds')
 plt.savefig(pp, format='pdf')
 plt.show()
 
 
-plt.plot(Year, BestORPG, label = 'ORPG')
-plt.plot(Year, BestDRPG, label = 'DRPG')
-plt.plot(Year, BestTRPG, label = 'TRPG')
-plt.title('Best Player Rebounds / Team Rebounds')
+plt.plot(Year, ThirdORPG, label = 'ORPG')
+plt.plot(Year, ThirdDRPG, label = 'DRPG')
+plt.plot(Year, ThirdTRPG, label = 'TRPG')
+plt.title('3rd Best Rebounders Rebounds_Team Rebounds ')
 plt.legend(bbox_to_anchor=(1,0.80))
 plt.figure
-plt.savefig('Best Player Rebounds_Team Rebounds')
+plt.savefig('3rd Best Rebounder Rebounds_Team Rebounds')
 plt.savefig(pp, format = 'pdf')
 plt.show()
 
 
-plt.plot(Year, SecORPG, label = 'ORPG')
-plt.plot(Year, SecDRPG, label = 'DRPG')
-plt.plot(Year, SecTRPG, label = 'TRPG')
-plt.title('2nd Best Player Rebounds / Team Rebounds')
+plt.plot(Year, TripORPG, label = 'ORPG')
+plt.plot(Year, TripDRPG, label = 'DRPG')
+plt.plot(Year, TripTRPG, label = 'TRPG')
+plt.title('Top 3 Best Rebounder Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
 plt.figure
-plt.savefig('2nd Best Player Rebounds_Team Rebounds')
+plt.savefig('Top 3 Best Rebounder Rebounds_Team Rebounds')
 plt.savefig(pp, format='pdf')
 plt.show()
 
 
-plt.plot(Year, BothORPG, label = 'ORPG')
-plt.plot(Year, BothDRPG, label = 'DRPG')
-plt.plot(Year, BothTRPG, label = 'TRPG')
-plt.title('Top 2 Best Players Rebounds / Team Rebounds')
+plt.plot(Year, FourthORPG, label = 'ORPG')
+plt.plot(Year, FourthDRPG, label = 'DRPG')
+plt.plot(Year, FourthTRPG, label = 'TRPG')
+plt.title('Fourth Best Rebounder Rebounds / Team Rebounds')
 plt.legend(bbox_to_anchor=(1,0.80))
 plt.figure
-plt.savefig('Top 2 Best Players Rebounds_Team Rebounds')
+plt.savefig('Fourth Best Rebounder Rebounds_Team Rebounds')
 plt.savefig(pp, format='pdf')
 plt.show()
 
-
+plt.plot(Year, AggORPG, label = 'ORPG')
+plt.plot(Year, AggDRPG, label = 'DRPG')
+plt.plot(Year, AggTRPG, label = 'TRPG')
+plt.title('Top 4 Best Rebounders Rebounds / Team Rebounds')
+plt.legend(bbox_to_anchor=(1,0.80))
+plt.figure
+plt.savefig('Top 4 Best Rebounders Rebounds_Team Rebounds')
+plt.savefig(pp, format='pdf')
+plt.show()
 
 
 best_ORPG = best_ORPG.sort(['Year', 'TEAM1'])
@@ -562,15 +574,29 @@ both_ORPG = both_ORPG.sort(['Year', 'TEAM1'])
 both_DRPG = both_DRPG.sort(['Year', 'TEAM1'])
 both_TRPG = both_TRPG.sort(['Year', 'TEAM1'])
 
+third_ORPG = third_ORPG.sort(['Year', 'TEAM1'])
+third_DRPG = third_DRPG.sort(['Year', 'TEAM1'])
+third_TRPG = third_TRPG.sort(['Year', 'TEAM1'])
 
+trip_ORPG = trip_ORPG.sort(['Year', 'TEAM1'])
+trip_DRPG = trip_DRPG.sort(['Year', 'TEAM1'])
+trip_TRPG = trip_TRPG.sort(['Year', 'TEAM1'])
+
+fourth_ORPG = fourth_ORPG.sort(['Year', 'TEAM1'])
+fourth_DRPG = fourth_DRPG.sort(['Year', 'TEAM1'])
+fourth_TRPG = fourth_TRPG.sort(['Year', 'TEAM1'])
+
+agg_ORPG = agg_ORPG.sort(['Year', 'TEAM1'])
+agg_DRPG = agg_DRPG.sort(['Year', 'TEAM1'])
+agg_TRPG = agg_TRPG.sort(['Year', 'TEAM1'])
 
 #graphs by team
 for team in teams:
     plt.plot(Year, best_ORPG[best_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
     plt.plot(Year, best_DRPG[best_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
     plt.plot(Year, best_TRPG[best_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
-    name = str(team + ' Best Player Rebounds_Team Rebounds')
-    plt.title(team + ' Best Player Rebounds / Team Rebounds')
+    name = str(team + ' Best Rebounder Rebounds_Team Rebounds')
+    plt.title(team + ' Best Rebounder Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
     plt.figure
     plt.savefig(pp, format='pdf')
@@ -582,8 +608,8 @@ for team in teams:
     plt.plot(Year, sec_ORPG[sec_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
     plt.plot(Year, sec_DRPG[sec_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
     plt.plot(Year, sec_TRPG[sec_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
-    name = str(team + ' 2nd Best Player Rebounds_Team Rebounds')
-    plt.title(team + ' 2nd Best Player Rebounds / Team Rebounds')
+    name = str(team + ' 2nd Best Rebounder Rebounds_Team Rebounds')
+    plt.title(team + ' 2nd Best Rebounder Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
     plt.figure
     plt.savefig(pp, format='pdf')
@@ -594,15 +620,58 @@ for team in teams:
     plt.plot(Year, both_ORPG[both_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
     plt.plot(Year, both_DRPG[both_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
     plt.plot(Year, both_TRPG[both_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
-    name = str(team + ' Top 2 Best Players Rebounds_Team Rebounds')
-    plt.title(team + ' Top 2 Best Players Rebounds / Team Rebounds')
+    name = str(team + ' Top 2 Best Rebounders Rebounds_Team Rebounds')
+    plt.title(team + ' Top 2 Best Rebounders Rebounds / Team Rebounds')
     plt.legend(bbox_to_anchor = (1, 1.5))
     plt.figure    
     plt.savefig(pp, format='pdf')
     plt.savefig(name)
     plt.show()
 
-    
+for team in teams:
+    plt.plot(Year, third_ORPG[third_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
+    plt.plot(Year, third_DRPG[third_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
+    plt.plot(Year, third_TRPG[third_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    name = str(team + ' Third Best Rebounder Rebounds_Team Rebounds')
+    plt.title(team + ' Third Best Rebounder Rebounds / Team Rebounds')
+    plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.figure
+    plt.savefig(pp, format='pdf')
+    plt.savefig(name)
+    plt.show()
+for team in teams:
+    plt.plot(Year, trip_ORPG[trip_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
+    plt.plot(Year, trip_DRPG[trip_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
+    plt.plot(Year, trip_TRPG[trip_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    name = str(team + ' Top 3 Best Rebounders Rebounds_Team Rebounds')
+    plt.title(team + ' Top 3 Best Rebounders Rebounds / Team Rebounds')
+    plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.figure
+    plt.savefig(pp, format='pdf')
+    plt.savefig(name)
+    plt.show()
+for team in teams:
+    plt.plot(Year, fourth_ORPG[fourth_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
+    plt.plot(Year, fourth_DRPG[fourth_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
+    plt.plot(Year, fourth_TRPG[fourth_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    name = str(team + ' Fourth Best Rebounder Rebounds_Team Rebounds')
+    plt.title(team + ' Fourth Best Rebounder Rebounds / Team Rebounds')
+    plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.figure
+    plt.savefig(pp, format='pdf')
+    plt.savefig(name)
+    plt.show()
+for team in teams:
+    plt.plot(Year, agg_ORPG[agg_ORPG["TEAM1"]==team]['Ratio'], label = 'ORPG')
+    plt.plot(Year, agg_DRPG[agg_DRPG["TEAM1"]==team]['Ratio'], label = 'DRPG')
+    plt.plot(Year, agg_TRPG[agg_TRPG["TEAM1"]==team]['Ratio'], label = 'TRPG')
+    name = str(team + ' Top 4 Best Rebounders Rebounds_Team Rebounds')
+    plt.title(team + ' Top 4 Best Rebounders Rebounds / Team Rebounds')
+    plt.legend(bbox_to_anchor = (1, 1.5))
+    plt.figure
+    plt.savefig(pp, format='pdf')
+    plt.savefig(name)
+    plt.show()
 pp.close()
 
 #move pngs into separate folder
